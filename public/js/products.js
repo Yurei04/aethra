@@ -175,26 +175,47 @@ generateBtn?.addEventListener("click", async () => {
   document.getElementById("generatedResult").style.display = "none";
   document.getElementById("loadingDesign").style.display = "block";
   
-  const formData = new FormData();
-  
-  formData.append(
-  "description",
-  description.value
-  );
-  
-  if(referenceImage?.files[0]){
-  formData.append(
-  "reference_image",
-  referenceImage.files[0]
-  );
-  }
-  
-  const res = await fetch("/design-finder", {
-  
-  method: "POST",
-  body: formData
-  
-  });
+const formData = new FormData();
+
+formData.append(
+    "description",
+    document.getElementById("description").value
+);
+
+const referenceImage =
+    document.getElementById("reference_image").files[0];
+
+if (referenceImage) {
+    formData.append("reference_image", referenceImage);
+}
+
+try {
+    const response = await fetch(
+        "https://aethra-ohnx.onrender.com/design-finder",
+        {
+            method: "POST",
+            body: formData
+        }
+    );
+
+    const result = await response.json();
+
+    if (!response.ok) {
+        throw new Error(result.error || `HTTP ${response.status}`);
+    }
+
+    if (result.success && result.generated_image) {
+        document.getElementById("generatedImage").src =
+            result.generated_image;
+    } else {
+        throw new Error("Image generation failed.");
+    }
+} catch (error) {
+    console.error("Design finder error:", error);
+    alert("Unable to generate the design. Please try again.");
+}
+
+const result = await response.json();
   
   const data = await res.json();
   

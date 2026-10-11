@@ -4,6 +4,7 @@ import bodyParser from "body-parser";
 import path from "path";
 import { createClient } from "@supabase/supabase-js";
 import multer from "multer";
+import cors from "cors";
 import OpenAI from "openai";
 import fs from "fs";
 import nodemailer from "nodemailer";
@@ -20,6 +21,14 @@ const upload = multer({
 });
 
 // MIDDLEWARE
+
+app.use(cors({
+    origin: [
+        "http://127.0.0.1:5500",
+        "http://localhost:5500"
+    ],
+    methods: ["GET", "POST", "PATCH", "DELETE", "OPTIONS"]
+}));
 
 app.use(express.static(path.join(__dirname, "public")));
 app.use(bodyParser.urlencoded({ extended: true }));
