@@ -1,0 +1,131 @@
+/* ============================================================
+   AETHRA — HOME / DASHBOARD
+   Requires global.css (uses its :root tokens)
+   ============================================================ */
+
+/* HERO */
+.hero{
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:space-around;
+  flex-wrap:wrap;
+  gap:30px;
+  min-height:80vh;
+  padding:60px 20px;
+  background:url("../hompage_photos/Work.webp") center/cover no-repeat;
+  color:var(--text);
+}
+.hero::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:var(--overlay);
+  z-index:1;
+}
+.hero img,
+.hero blockquote{ position:relative; z-index:2; }
+
+.hero img{
+  max-width:420px;
+  border-radius:var(--radius);
+  border:1px solid var(--line-strong);
+  box-shadow:0 20px 50px rgba(0,0,0,.6), 0 0 40px rgba(199,148,255,.12);
+  transition:.3s;
+}
+.hero img:hover{ transform:scale(1.02); }
+
+.hero blockquote{
+  font-family:'Playfair Display', serif;
+  font-size:22px;
+  font-style:italic;
+  max-width:450px;
+  line-height:1.7;
+  color:var(--text);
+  padding-left:20px;
+  border-left:2px solid var(--accent);
+}
+
+/* ABOUT */
+.about{
+  background:var(--surface);
+  border:1px solid var(--line);
+  padding:50px 40px;
+  max-width:900px;
+  margin:40px auto 10px;
+  border-radius:20px;
+  box-shadow:0 25px 60px rgba(0,0,0,.5);
+}
+.about h2{ text-align:center; margin-bottom:25px; font-size:32px; }
+.about h3{
+  margin:35px 0 15px;
+  font-size:22px;
+  color:var(--text);
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+.about p{ margin-bottom:15px; line-height:1.7; color:var(--text-muted); }
+.about ul{ margin:10px 0 15px; padding-left:20px; }
+.about li{ margin-bottom:8px; color:var(--text-muted); }
+.about li::marker{ color:var(--accent); }
+
+/* GALLERY */
+.gallery{ padding:80px 20px; text-align:center; max-width:1200px; margin:auto; }
+.gallery h2{ margin-bottom:40px; font-size:32px; }
+.gallery-category{
+  margin:60px 0 20px;
+  font-size:22px;
+  font-weight:600;
+  color:var(--text);
+}
+.gallery-grid{
+  margin:20px 0 35px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:20px;
+  justify-content:center;
+}
+.gallery-grid img{
+  width:300px;
+  border-radius:10px;
+  border:1px solid var(--line);
+  box-shadow:0 10px 25px rgba(0,0,0,.45);
+  transition:.3s;
+}
+.gallery-grid img:hover{ transform:scale(1.03); border-color:var(--accent); }
+
+/* IMAGE PREVIEW MODAL */
+.image-modal{
+  position:fixed;
+  inset:0;
+  background:rgba(4,3,18,.94);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  opacity:0;
+  pointer-events:none;
+  transition:.3s;
+  z-index:999;
+}
+.image-modal.show{ opacity:1; pointer-events:auto; }
+.image-modal img{ max-width:90%; max-height:90%; border-radius:10px; }
+
+.image-modal .close-btn{
+  position:absolute;
+  top:20px;
+  right:25px;
+  width:45px;
+  height:45px;
+  background:rgba(30,26,70,.8);
+  color:var(--text);
+  border:1px solid var(--line-strong);
+  border-radius:50%;
+  font-size:22px;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:1000;
+}
+.image-modal .close-btn:hover{ background:var(--accent); color:#120a24; transform:scale(1.1); }

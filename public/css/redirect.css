@@ -1,0 +1,52 @@
+/* ============================================================
+   AETHRA — AR FALLBACK / ERROR PAGE
+   Standalone (defines its own tokens)
+   ============================================================ */
+
+:root{
+  --bg:#070718; --surface:#12102b; --text:#f4f1ff; --text-muted:#a99fc9;
+  --accent:#c794ff; --line:rgba(167,139,250,.18);
+}
+
+body{
+  font-family:'Open Sans', system-ui, Arial, sans-serif;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  height:100vh;
+  margin:0;
+  padding:16px;
+  background:var(--bg);
+  color:var(--text-muted);
+}
+
+.box{
+  max-width:720px;
+  text-align:center;
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:20px;
+  padding:40px 32px;
+  box-shadow:0 25px 60px rgba(0,0,0,.55);
+}
+.box h1,.box h2{ font-family:'Playfair Display', serif; color:var(--text); margin-bottom:10px; }
+
+.error{ color:#ff8fa3; }
+
+.btn{
+  display:inline-block;
+  margin-top:16px;
+  padding:12px 22px;
+  background:var(--accent);
+  color:#120a24;
+  font-weight:600;
+  border-radius:8px;
+  border:none;
+  font-size:16px;
+  cursor:pointer;
+  transition:.2s;
+}
+.btn:hover{ background:#d6b0ff; box-shadow:0 0 18px rgba(199,148,255,.35); }
+
+.steps{ text-align:left; max-width:400px; margin:20px auto; line-height:1.6; }
+.steps li::marker{ color:var(--accent); }
