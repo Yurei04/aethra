@@ -149,85 +149,68 @@ qrModal.style.display = "flex";
   
   
   /* GENERATE DESIGN */
-  
-  let generatedImage = null;
-  
-  const generateBtn =
-  document.getElementById("generateBtn");
-  
-  const result =
-  document.getElementById("result");
-  
-  const description =
-  document.getElementById("description");
+ 
+/* GENERATE DESIGN */
 
-  const referenceImage =
-document.getElementById("referenceImage");
-  
+let generatedImage = null;
+
+const generateBtn = document.getElementById("generateBtn");
+const description = document.getElementById("description");
+const referenceImageInput = document.getElementById("referenceImage");
+
 generateBtn?.addEventListener("click", async () => {
+    if (!description.value.trim() && !referenceImageInput?.files[0]) {
+        alert("Add a description or upload an image.");
+        return;
+    }
 
-  if (!description.value.trim() && !referenceImage?.files[0]) {
-  alert("Add description or upload image");
-  return;z
-  }
-  
-  document.getElementById("placeholder").style.display = "none";
-  document.getElementById("generatedResult").style.display = "none";
-  document.getElementById("loadingDesign").style.display = "block";
-  
-const formData = new FormData();
+    document.getElementById("placeholder").style.display = "none";
+    document.getElementById("generatedResult").style.display = "none";
+    document.getElementById("loadingDesign").style.display = "block";
 
-formData.append(
-    "description",
-    document.getElementById("description").value
-);
+    const formData = new FormData();
 
-const referenceImage =
-    document.getElementById("reference_image").files[0];
+    formData.append("description", description.value.trim());
 
-if (referenceImage) {
-    formData.append("reference_image", referenceImage);
-}
+    if (referenceImageInput?.files[0]) {
+        formData.append("reference_image", referenceImageInput.files[0]);
+    }
 
-try {
-    const response = await fetch(
-        "https://aethra-ohnx.onrender.com/design-finder",
-        {
-            method: "POST",
-            body: formData
+    try {
+        const response = await fetch(
+            "https://aethra-ohnx.onrender.com/design-finder",
+            {
+                method: "POST",
+                body: formData
+            }
+        );
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            throw new Error(data.error || `HTTP ${response.status}`);
         }
-    );
 
-    const result = await response.json();
+        if (!data.success || !data.generated_image) {
+            throw new Error("Image generation failed.");
+        }
 
-    if (!response.ok) {
-        throw new Error(result.error || `HTTP ${response.status}`);
+        generatedImage = data.generated_image;
+
+        document.getElementById("generatedResult").innerHTML =
+            `<img src="${generatedImage}" class="generated-image" alt="Generated ironwork design">`;
+
+        document.getElementById("generatedResult").style.display = "block";
+
+    } catch (error) {
+        console.error("Design finder error:", error);
+        alert(`Unable to generate the design: ${error.message}`);
+
+    } finally {
+        document.getElementById("loadingDesign").style.display = "none";
     }
+});
 
-    if (result.success && result.generated_image) {
-        document.getElementById("generatedImage").src =
-            result.generated_image;
-    } else {
-        throw new Error("Image generation failed.");
-    }
-} catch (error) {
-    console.error("Design finder error:", error);
-    alert("Unable to generate the design. Please try again.");
-}
-
-const result = await response.json();
-  
-  const data = await res.json();
-  
-  generatedImage = data.generated_image;
-  
-  document.getElementById("loadingDesign").style.display = "none";
-  document.getElementById("generatedResult").style.display = "block";
-  
-  document.getElementById("generatedResult").innerHTML =
-  `<img src="${generatedImage}" class="generated-image">`;
-  
-  });
   
   
   /* SAVE DESIGN */
