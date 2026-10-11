@@ -96,3 +96,6 @@ Specify the applicable license for this project before distributing or modifying
 ```
 
 **Note:** The README retains the system's purpose, features, stack, project structure, 3D model configuration, and setup instructions. The installation and directory details should be verified against your actual repository before publishing.
+
+
+[![Architecture diagram](https://gitdiagram.com/diagram-badge.svg)](https://gitdiagram.com/yurei04/aethra?utm_source=readme&utm_medium=badge)
